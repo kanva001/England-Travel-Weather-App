@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>England Travel Weather Dashboard</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        th { background-color: #f4f4f4; }
+        #map { height: 400px; margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+<h1>England Travel Weather Dashboard</h1>
+<p>Generated: {{ generated_at }}</p>
+
+<table>
+<tr>
+    <th>Location</th>
+    <th>Temperature (°C)</th>
+    <th>Weather</th>
+    <th>Humidity (%)</th>
+</tr>
+{% for w in weather %}
+<tr>
+    <td>{{ w.location }}</td>
+    <td>{{ w.temperature }}</td>
+    <td>{{ w.description }}</td>
+    <td>{{ w.humidity }}</td>
+</tr>
+{% endfor %}
+</table>
+
+<div id="map"></div>
+
+<script>
+var map = L.map('map').setView([52.3555, -1.1743], 6);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+}).addTo(map);
+
+var locations = [
+{% for w in weather %}
+    ["{{ w.location }}", {{ w.lat }}, {{ w.lon }}],
+{% endfor %}
+];
+
+locations.forEach(function(p){
+    L.marker([p[1], p[2]]).addTo(map).bindPopup(p[0]);
+});
+</script>
+
+</body>
+</html>

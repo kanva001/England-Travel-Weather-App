@@ -1,103 +1,84 @@
 ---
 
-# 🌦️ England Travel Weather App
+## **README.md**
 
-A web-based application built with **Python and Flask** that retrieves **real-time weather data** for a travel blogger’s itinerary across England. The app integrates with an external weather API to display current conditions for multiple destinations using latitude and longitude.
+````markdown
+# England Travel Weather Dashboard
 
----
-
-## 📌 Project Overview
-
-This project was developed as part of a coursework assignment to demonstrate:
-
-* API integration in a real-world business scenario
-* Use of HTTP requests and JSON data
-* Backend and frontend web development using Python and Flask
-
-The application supports a travel website by providing up-to-date weather information that can be used alongside travel blog posts.
+A web-based application that displays live weather data for 10 popular locations in England. The dashboard provides a table of temperature, weather description, and humidity, along with an interactive Leaflet map showing each location. Users can also download a PDF report of the dashboard.
 
 ---
 
-## 🧭 Itinerary Locations
+## Features
 
-The application retrieves weather data for the following locations in England:
-
-* Lake District National Park
-* Corfe Castle
-* The Cotswolds
-* Cambridge
-* Bristol
-* Oxford
-* Norwich
-* Stonehenge
-* Watergate Bay
-* Birmingham
-
-Each location is queried using its **latitude and longitude coordinates**.
+- Live weather data from OpenWeatherMap API  
+- Interactive table: Temperature (°C), Weather, Humidity (%)  
+- Leaflet map with markers for each location  
+- PDF export of the dashboard  
+- Fully built with Python, Flask, HTML, and JavaScript  
 
 ---
 
-## 🛠️ Technologies Used
+## Locations Covered
 
-* **Python 3**
-* **Flask** (web framework)
-* **Requests** (HTTP requests)
-* **OpenWeatherMap API**
-* **HTML & CSS**
-* **JSON**
-
----
-
-## ⚙️ Features
-
-* Retrieves **live weather data** from an external API
-* Displays:
-
-  * Temperature (°C)
-  * Weather description
-  * Humidity
-* Clean, card-based web interface
-* Easily extendable (e.g. maps, icons, user input)
+1. Lake District National Park  
+2. Corfe Castle  
+3. The Cotswolds  
+4. Cambridge  
+5. Bristol  
+6. Oxford  
+7. Norwich  
+8. Stonehenge  
+9. Watergate Bay  
+10. Birmingham  
 
 ---
 
-## 🚀 Getting Started
+## Setup & Installation
 
-### 1. Clone the Repository
+1. Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/england-travel-weather-app.git
-cd england-travel-weather-app
-```
+git clone <your-repo-url>
+````
 
-### 2. Install Dependencies
+2. Navigate to the project folder:
 
 ```bash
-pip install flask requests
+cd england_weather_app
 ```
 
-### 3. Get an API Key
+3. Create a virtual environment:
 
-* Sign up at **OpenWeatherMap**
-* Generate a free API key
-
-### 4. Add Your API Key
-
-In `app.py`, replace:
-
-```python
-API_KEY = "YOUR_API_KEY_HERE"
+```bash
+python -m venv venv
 ```
 
----
+4. Activate the virtual environment:
 
-## ▶️ Running the Application
+```powershell
+.\venv\Scripts\Activate.ps1
+```
+
+5. Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+6. Set your OpenWeatherMap API key in PowerShell:
+
+```powershell
+$env:OWM_API_KEY="YOUR_API_KEY_HERE"
+```
+
+7. Run the application:
 
 ```bash
 python app.py
 ```
 
-Then open your browser and go to:
+8. Open your browser:
 
 ```
 http://127.0.0.1:5000/
@@ -105,61 +86,28 @@ http://127.0.0.1:5000/
 
 ---
 
-## 📁 Project Structure
+## Usage
+
+* View live weather data for all locations
+* Explore interactive Leaflet map
+* Click **“Download PDF Report”** to generate a PDF of the dashboard
+
+---
+
+## Dependencies
+
+* Python 3.11+
+* Flask
+* requests
+* pdfkit
+* wkhtmltopdf
+
+---
+
+## Screenshots
+
+![Dashboard Screenshot](dashboard.png)  <!-- Add your screenshot here -->
 
 ```
-.
-├── app.py
-├── templates
-│   └── index.html
-├── README.md
-```
-
----
-
-## 🧪 Example API Response (Excerpt)
-
-```json
-{
-  "main": {
-    "temp": 15.2,
-    "humidity": 78
-  },
-  "weather": [
-    {
-      "description": "overcast clouds"
-    }
-  ]
-}
-```
-
----
-
-## 📈 Future Improvements
-
-* Interactive map (Leaflet.js or Google Maps)
-* Weather icons
-* User-selected destinations
-* Error handling and API response validation
-* Caching to reduce API calls
-
----
-
-## 🧠 Learning Outcomes
-
-Through this project, I gained hands-on experience with:
-
-* API-driven application development
-* HTTP communication and JSON parsing
-* Flask routing and templating
-* Structuring and documenting a Python project
-* Connecting backend logic with frontend presentation
-
----
-
-## 🙌 Acknowledgements
-
-* OpenWeatherMap API
-* Flask documentation
 
 ---
