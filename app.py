@@ -3,13 +3,16 @@ from flask import Flask, render_template
 import requests
 from datetime import datetime
 import pdfkit
+from flask import send_file
+
 
 app = Flask(__name__)
 
-#API_KEY = os.environ.get ("OWM_API_KEY")
-API_KEY = "00c687ee7093ec9ed2f6586d340f74ba"  # <-- your actual API key here
+API_KEY = os.getenv("OWM_API_KEY") # <-- your actual API key here
+
 if not API_KEY:
-    raise RuntimeError ("Set the OWM API_KET first.")
+    raise ValueError("Please set the OWM_API_KEY environment variable")
+
 
 locations = {
     "Lake District National Park": (54.4609, -3.0886),
@@ -26,8 +29,13 @@ locations = {
 
 def get_weather(lat, lon):
     url = "https://api.openweathermap.org/data/2.5/weather"
-    params = {"lat": lat, "lon": lon, "appid": API_KEY, "units": "metric"}
-    response = requests.get(url, params=params, timeout=10)
+    params = {
+        "lat": lat,
+        "lon": lon,
+        "appid": API_KEY,
+        "units": "metric"
+    }
+    response = requests.get(url, params=params)
     response.raise_for_status()
     return response.json()
 
@@ -59,9 +67,7 @@ def index():
     generated_at = datetime.utcnow().strftime("%Y-%m-%d %H:%M UTC")
     return render_template("index.html", weather=weather_data, generated_at=generated_at)
 
-if __name__ == "__main__":
-    app.run(debug=True)
-    
+
 @app.route("/download_pdf")
 def download_pdf():
     path_wkhtmltopdf = r"C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe"
@@ -69,6 +75,5 @@ def download_pdf():
     pdfkit.from_url("http://127.0.0.1:5000/", "weather_report.pdf", configuration=config)
     return send_file("weather_report.pdf", as_attachment=True)
 
-
-print("API_KEY:", API_KEY)
-API_KEY = os.environ.get("OWM_API_KEY")
+if __name__ == "__main__":
+    app.run(debug=True)
